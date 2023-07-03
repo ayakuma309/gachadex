@@ -2,16 +2,24 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 
 import {
-  getAllPosts,
+  getNumberOfPages,
   getPostsByPage,
-  getPostsForTopPage,
 } from "../../../lib/notionAPI";
+
 import SinglePost from "@/components/post/SinglePost";
+import Pagination from "@/components/Pagination/pagination";
+
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const numberOfPage = await getNumberOfPages();
+
+  let params = [];
+  for (let i = 1; i <= numberOfPage; i++) {
+    params.push({ params: { page: i.toString() } });
+  }
 
   return {
-    paths: [{params: {page: "1"}}, {params: {page: "2"}}],
+    paths: params,
     fallback: "blocking",
   };
 };
@@ -22,15 +30,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
     parseInt(currentPage.toString(), 10)
   );
 
+  const numberOfPage = await getNumberOfPages();
+
   return {
     props: {
       postsByPage,
+      numberOfPage,
     },
     revalidate: 10,
   };
 };
 
-const BlogPageList = ({ postsByPage }) => {
+const BlogPageList = ({ postsByPage, numberOfPage  }) => {
   return (
     <div className="container h-full w-full mx-auto">
       <Head>
@@ -56,6 +67,7 @@ const BlogPageList = ({ postsByPage }) => {
             </div>
           ))}
         </section>
+        <Pagination numberOfPage={numberOfPage}/>
       </main>
     </div>
   );
