@@ -1,13 +1,15 @@
 import React from "react";
 import Head from "next/head";
-import { getAllPosts } from "../lib/notionAPI";
+import { getPostsForTopPage } from "../lib/notionAPI";
 import SinglePost from "../components/post/SinglePost";
+import Link from "next/link";
+import { NUMBER_OF_POSTS_PER_PAGE } from "@/constants/constants";
 export const getStaticProps = async () => {
-  const allPosts = await getAllPosts();
+  const fourPosts = await getPostsForTopPage(NUMBER_OF_POSTS_PER_PAGE);
 
   return {
     props: {
-      allPosts,
+      fourPosts,
     },
     //60秒ごとに更新する ISG
     revalidate: 60 * 60 * 6,
@@ -15,10 +17,9 @@ export const getStaticProps = async () => {
 };
 
 interface Props {
-  allPosts: any;
+  fourPosts: any;
 }
-export default function Home({ allPosts }: Props) {
-  // console.log(allPosts);
+export default function Home({ fourPosts }: Props) {
   return (
     <div className="container h-full w-full mx-auto">
       <Head>
@@ -29,19 +30,23 @@ export default function Home({ allPosts }: Props) {
 
       <main className="container w-full mt-16">
         <h1 className="text-5xl font-medium text-center mb-16">gachadex😄</h1>
-        {allPosts.map((post: any) => (
-          <div
-            key={post.id}
-            className="text-white bg-red-800 mb-8 mx-auto rounded-md p-5 shadow-2xl hover:shadow-none hover:translate-y-1 transition-all duration-300"
-          >
+        {fourPosts.map((post: any) => (
+          <div className="mx-4" key={post.id}>
             <SinglePost
               title={post.title}
               description={post.description}
               tags={post.tags}
               slug={post.slug}
+              isPaginationPage={false}
             />
           </div>
         ))}
+        <Link
+          href="/posts/page/1"
+          className="mb-6 lg:w-1/2 mx-auto px-5 block text-right"
+        >
+          ...もっと見る
+        </Link>
       </main>
     </div>
   );
