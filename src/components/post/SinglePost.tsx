@@ -16,10 +16,10 @@ const SinglePost = ({title,description, tags, slug}:Props) => {
           <h2 className="text-gray-900">{title}</h2>
         </Link>
         <h2 className="text-gray-900">{description}</h2>
-        {tags.map((tag) => (
-          <div className="bg-white text-black rounded-md px-2" key={tag}>
+        {tags.map((tag, index) => (
+          <button className="bg-white text-black rounded-md px-2 flex m-2" key={index}>
             {tag}
-          </div>
+          </button>
         ))}
       </div>
     </div>
