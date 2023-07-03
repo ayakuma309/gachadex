@@ -1,22 +1,32 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
-
 import {
+  getAllPosts,
+  getAllTags,
   getNumberOfPages,
+  getNumberOfPagesByTag,
   getPostsByPage,
-} from "../../../lib/notionAPI";
-
+  getPostsByTagAndPage,
+  getPostsForTopPage,
+} from "../../../../../lib/notionAPI";
 import SinglePost from "@/components/post/SinglePost";
 import Pagination from "@/components/Pagination/pagination";
 
-
 export const getStaticPaths: GetStaticPaths = async () => {
-  const numberOfPage = await getNumberOfPages();
-
+  const allTags = await getAllTags();
   let params = [];
-  for (let i = 1; i <= numberOfPage; i++) {
-    params.push({ params: { page: i.toString() } });
-  }
+
+  await Promise.all(
+    allTags.map((tag: string) => {
+      return getNumberOfPagesByTag(tag).then((numberOfPagesByTag: number) => {
+        for (let i = 1; i <= numberOfPagesByTag; i++) {
+          params.push({ params: { tag: tag, page: i.toString() } });
+        }
+      });
+    })
+  );
+
+  // console.log(params);
 
   return {
     paths: params,
@@ -25,23 +35,38 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const currentPage = context.params?.page;
-  const postsByPage = await getPostsByPage(
-    parseInt(currentPage.toString(), 10)
+  const currentPage: string = context.params?.page.toString();
+  const currentTag: string = context.params?.tag.toString();
+
+  const upperCaseCurrentTag =
+    currentTag.charAt(0).toUpperCase() + currentTag.slice(1);
+
+  const posts = await getPostsByTagAndPage(
+    upperCaseCurrentTag,
+    parseInt(currentPage, 10)
   );
 
-  const numberOfPage = await getNumberOfPages();
+  const numberOfPagesByTag = await getNumberOfPagesByTag(upperCaseCurrentTag);
+
+  const allTags = await getAllTags();
 
   return {
     props: {
-      postsByPage,
-      numberOfPage,
+      posts,
+      numberOfPagesByTag,
+      currentTag,
+      allTags,
     },
-    revalidate: 10,
+    revalidate: 60 * 60 * 6,
   };
 };
 
-const BlogPageList = ({ postsByPage, numberOfPage  }) => {
+const BlogTagPageList = ({
+  numberOfPagesByTag,
+  posts,
+  currentTag,
+  allTags,
+}) => {
   return (
     <div className="container h-full w-full mx-auto">
       <Head>
@@ -55,7 +80,7 @@ const BlogPageList = ({ postsByPage, numberOfPage  }) => {
           Notion Blog🚀
         </h1>
         <section className="sm:grid grid-cols-2 w-5/6 gap-3 mx-auto">
-          {postsByPage.map((post) => (
+          {posts.map((post) => (
             <div key={post.id}>
               <SinglePost
                 title={post.title}
@@ -67,10 +92,10 @@ const BlogPageList = ({ postsByPage, numberOfPage  }) => {
             </div>
           ))}
         </section>
-        <Pagination numberOfPage={numberOfPage} tag={""} />
+        <Pagination numberOfPage={numberOfPagesByTag} tag={currentTag} />
       </main>
     </div>
   );
 };
 
-export default BlogPageList;
+export default BlogTagPageList;
