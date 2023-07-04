@@ -22,6 +22,8 @@ type SinglePost = {
     description: string;
     slug: string;
     tags: string[];
+    cover: string;
+    icon: string;
   },
   markdown: string;
 }

@@ -7,9 +7,11 @@ type Props = {
   tags: string[];
   slug: string;
   isPaginationPage: boolean;
+  cover?: string;
+  icon?: string;
 };
 
-const SinglePost = ({ title, description, tags, slug, isPaginationPage } : Props) => {
+const SinglePost = ({ title, description, tags, slug, isPaginationPage,cover, icon } : Props) => {
 
   return (
     <>

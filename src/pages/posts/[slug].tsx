@@ -16,7 +16,7 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params }: any) => {
   const post = await getSinglePost(params.slug);
 
   return {
@@ -28,8 +28,11 @@ export const getStaticProps = async ({ params }) => {
 };
 
 const Post = ({ post }: SinglePostProps) => {
+
   return (
     <section className="container lg:px-2 px-5 h-screen lg:w-2/5 mx-auto mt-20">
+      {post.metadata.icon && (<img src={post.metadata.icon} className="w-20 h-20 rounded-xl" />)}
+      {post.metadata.cover && (<img src={post.metadata.cover} className="w-full rounded-xl" />)}
       <h2 className="w-full text-2xl font-medium">{post.metadata.title}</h2>
       <div className="border-b-2 w-1/3 mt-1 border-sky-900"></div>
       <br />

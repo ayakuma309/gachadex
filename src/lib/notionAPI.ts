@@ -50,6 +50,14 @@ const getPageMetaData = (post: any) => {
     return allTags;
   };
 
+  let icon;
+
+  if (post.icon?.type === 'emoji') {
+    icon = post.icon.emoji;
+  } else if (post.icon?.type === 'file') {
+    icon = post.icon.file.url
+  }
+
   return {
     id: post.id,
     title: post.properties.Name.title[0].plain_text,
@@ -57,8 +65,16 @@ const getPageMetaData = (post: any) => {
     slug: post.properties.Slug.rich_text[0].plain_text,
     tags: getTags(post.properties.Tags.multi_select),
     date: post.properties.Date.date.start,
+    icon: icon,
+    cover: getCover(post.cover),
   };
 };
+export const getCover = (cover: any) => {
+  if (cover && cover.file) return cover.file.url;
+  if (cover && cover.external) return cover.external.url;
+  return "";
+};
+
 
 export const getSinglePost = async (slug: string) => {
   const databaseId = process.env.NOTION_DATABASE_ID;
