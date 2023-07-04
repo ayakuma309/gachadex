@@ -1,9 +1,10 @@
 import React from "react";
+import Link from "next/link";
 import { getAllPosts, getSinglePost } from "../../lib/notionAPI";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import Link from "next/link";
+import { SinglePostProps } from "@/types/Type";
 
 export const getStaticPaths = async () => {
   const allPosts = await getAllPosts();
@@ -26,7 +27,7 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
-const Post = ({ post }) => {
+const Post = ({ post }: SinglePostProps) => {
   return (
     <section className="container lg:px-2 px-5 h-screen lg:w-2/5 mx-auto mt-20">
       <h2 className="w-full text-2xl font-medium">{post.metadata.title}</h2>

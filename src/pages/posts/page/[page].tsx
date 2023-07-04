@@ -7,6 +7,8 @@ import {
   getPostsByPage,
 } from "../../../lib/notionAPI";
 
+import { BlogPageListProps } from "@/types/Type";
+
 import SinglePost from "@/components/post/SinglePost";
 import Pagination from "@/components/Pagination/pagination";
 import Tag from "@/components/Tag/Tag";
@@ -28,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps =  async (context: { params: { page: string; }; }) => {
   //現在のページ
   const currentPage = context.params?.page;
 
@@ -52,7 +54,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-const BlogPageList = ({ postsByPage, numberOfPage, allTags }) => {
+const BlogPageList = ({ postsByPage, numberOfPage, allTags }: BlogPageListProps) => {
   return (
     <div className="container h-full w-full mx-auto">
       <Head>

@@ -8,10 +8,11 @@ import {
 import SinglePost from "@/components/post/SinglePost";
 import Pagination from "@/components/Pagination/pagination";
 import Tag from "@/components/Tag/Tag";
+import { BlogTagPageListProps } from "@/types/Type";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allTags = await getAllTags();
-  let params = [];
+  let params: { params: { tag: string; page: string; }; }[] = [];
 
   await Promise.all(
     allTags.map((tag: string) => {
@@ -31,7 +32,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps = async (context: { params: { page: string; tag: string; }; }) => {
   const currentPage: string = context.params?.page.toString();
   const currentTag: string = context.params?.tag.toString();
 
@@ -65,7 +66,7 @@ const BlogTagPageList = ({
   posts,
   currentTag,
   allTags,
-}) => {
+}: BlogTagPageListProps) => {
   return (
     <div className="container h-full w-full mx-auto">
       <Head>

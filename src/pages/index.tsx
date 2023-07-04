@@ -3,6 +3,7 @@ import Head from "next/head";
 import { getAllTags, getPostsForTopPage } from "../lib/notionAPI";
 import SinglePost from "../components/post/SinglePost";
 import Link from "next/link";
+import { AllPostProps } from "@/types/Type";
 import { NUMBER_OF_POSTS_PER_PAGE } from "@/constants/constants";
 import Tag from "@/components/Tag/Tag";
 
@@ -20,11 +21,7 @@ export const getStaticProps = async () => {
   };
 };
 
-interface Props {
-  fourPosts: any;
-  allTags: string[];
-}
-export default function Home({ fourPosts, allTags }: Props) {
+export default function Home({ fourPosts, allTags }: AllPostProps) {
   return (
     <div className="container h-full w-full mx-auto">
       <Head>
