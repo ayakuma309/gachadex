@@ -1,16 +1,19 @@
 import React from "react";
 import Head from "next/head";
-import { getPostsForTopPage } from "../lib/notionAPI";
+import { getAllTags, getPostsForTopPage } from "../lib/notionAPI";
 import SinglePost from "../components/post/SinglePost";
 import Link from "next/link";
 import { NUMBER_OF_POSTS_PER_PAGE } from "@/constants/constants";
+import Tag from "@/components/Tag/Tag";
 
 export const getStaticProps = async () => {
   const fourPosts = await getPostsForTopPage(NUMBER_OF_POSTS_PER_PAGE);
 
+  const allTags = await getAllTags();
   return {
     props: {
       fourPosts,
+      allTags,
     },
     //60秒ごとに更新する ISG
     revalidate: 60 * 60 * 6,
@@ -19,8 +22,9 @@ export const getStaticProps = async () => {
 
 interface Props {
   fourPosts: any;
+  allTags: string[];
 }
-export default function Home({ fourPosts }: Props) {
+export default function Home({ fourPosts, allTags }: Props) {
   return (
     <div className="container h-full w-full mx-auto">
       <Head>
@@ -48,6 +52,7 @@ export default function Home({ fourPosts }: Props) {
         >
           ...もっと見る
         </Link>
+        <Tag  tags={allTags} />
       </main>
     </div>
   );

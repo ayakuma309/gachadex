@@ -7,6 +7,7 @@ import {
 } from "../../../../../lib/notionAPI";
 import SinglePost from "@/components/post/SinglePost";
 import Pagination from "@/components/Pagination/pagination";
+import Tag from "@/components/Tag/Tag";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allTags = await getAllTags();
@@ -43,6 +44,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     parseInt(currentPage, 10)
   );
 
+  //ページネーション設定
   const numberOfPagesByTag = await getNumberOfPagesByTag(upperCaseCurrentTag);
 
   const allTags = await getAllTags();
@@ -90,6 +92,7 @@ const BlogTagPageList = ({
           ))}
         </section>
         <Pagination numberOfPage={numberOfPagesByTag} tag={currentTag} />
+        <Tag tags={allTags} />
       </main>
     </div>
   );

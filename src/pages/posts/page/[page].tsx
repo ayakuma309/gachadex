@@ -2,12 +2,14 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 
 import {
+  getAllTags,
   getNumberOfPages,
   getPostsByPage,
 } from "../../../lib/notionAPI";
 
 import SinglePost from "@/components/post/SinglePost";
 import Pagination from "@/components/Pagination/pagination";
+import Tag from "@/components/Tag/Tag";
 
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -38,16 +40,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
   //ページネーション設定
   const numberOfPage = await getNumberOfPages();
 
+  const allTags = await getAllTags();
+
   return {
     props: {
       postsByPage,
       numberOfPage,
+      allTags,
     },
     revalidate: 10,
   };
 };
 
-const BlogPageList = ({ postsByPage, numberOfPage  }) => {
+const BlogPageList = ({ postsByPage, numberOfPage, allTags }) => {
   return (
     <div className="container h-full w-full mx-auto">
       <Head>
@@ -74,6 +79,7 @@ const BlogPageList = ({ postsByPage, numberOfPage  }) => {
           ))}
         </section>
         <Pagination numberOfPage={numberOfPage} tag={""} />
+        <Tag tags={allTags} />
       </main>
     </div>
   );
