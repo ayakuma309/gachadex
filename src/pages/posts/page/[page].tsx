@@ -11,8 +11,10 @@ import Pagination from "@/components/Pagination/pagination";
 
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  //ページネーションの中にある現在のページを返す
   const numberOfPage = await getNumberOfPages();
 
+  //該当箇所を返す
   let params = [];
   for (let i = 1; i <= numberOfPage; i++) {
     params.push({ params: { page: i.toString() } });
@@ -25,11 +27,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  //現在のページ
   const currentPage = context.params?.page;
+
+  //そのページの個数を数値で取得
   const postsByPage = await getPostsByPage(
     parseInt(currentPage.toString(), 10)
   );
 
+  //ページネーション設定
   const numberOfPage = await getNumberOfPages();
 
   return {

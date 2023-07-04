@@ -4,6 +4,7 @@ import { getPostsForTopPage } from "../lib/notionAPI";
 import SinglePost from "../components/post/SinglePost";
 import Link from "next/link";
 import { NUMBER_OF_POSTS_PER_PAGE } from "@/constants/constants";
+
 export const getStaticProps = async () => {
   const fourPosts = await getPostsForTopPage(NUMBER_OF_POSTS_PER_PAGE);
 

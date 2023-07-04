@@ -1,13 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import {
-  getAllPosts,
   getAllTags,
-  getNumberOfPages,
   getNumberOfPagesByTag,
-  getPostsByPage,
   getPostsByTagAndPage,
-  getPostsForTopPage,
 } from "../../../../../lib/notionAPI";
 import SinglePost from "@/components/post/SinglePost";
 import Pagination from "@/components/Pagination/pagination";
@@ -38,6 +34,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const currentPage: string = context.params?.page.toString();
   const currentTag: string = context.params?.tag.toString();
 
+  //タグの最初の文字を大文字にする
   const upperCaseCurrentTag =
     currentTag.charAt(0).toUpperCase() + currentTag.slice(1);
 

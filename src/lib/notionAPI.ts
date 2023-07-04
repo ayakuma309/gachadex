@@ -85,7 +85,7 @@ export const getPostsForTopPage = async (pageSize: number) => {
   return fourPosts;
 };
 
-
+//そのページの個数を数値で取得
 export const getPostsByPage = async (page: number) => {
   const allPosts = await getAllPosts();
   const startIndex = (page - 1) * NUMBER_OF_POSTS_PER_PAGE;
@@ -94,7 +94,7 @@ export const getPostsByPage = async (page: number) => {
   return allPosts.slice(startIndex, endIndex);
 };
 
-
+//ページネーション設定
 export const getNumberOfPages = async () => {
   const allPosts = await getAllPosts();
 
@@ -135,10 +135,12 @@ export const getNumberOfPagesByTag = async (tagName: string) => {
 export const getAllTags = async () => {
   const allPosts = await getAllPosts();
 
+  //[]を削除して新しい配列を返す flatMap
   const allTagsDuplicationLists = allPosts.flatMap((post) => post.tags);
+
+  //重複を削除
   const set = new Set(allTagsDuplicationLists);
   const allTagsList = Array.from(set);
-  // console.log(allTagsList);
 
   return allTagsList;
 };
