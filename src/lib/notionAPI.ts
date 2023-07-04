@@ -26,12 +26,12 @@ export const getAllPosts = async () => {
       },
     },
     //最新順にソートする場合
-    // sorts: [
-    //   {
-    //     property: "Date",
-    //     direction: "descending",
-    //   },
-    // ],
+    sorts: [
+      {
+        property: "Date",
+        direction: "descending",
+      },
+    ],
   });
 
   const allPosts = posts.results;
@@ -56,6 +56,7 @@ const getPageMetaData = (post: any) => {
     description: post.properties.Description.rich_text[0].plain_text,
     slug: post.properties.Slug.rich_text[0].plain_text,
     tags: getTags(post.properties.Tags.multi_select),
+    date: post.properties.Date.date.start,
   };
 };
 
