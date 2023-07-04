@@ -19,6 +19,13 @@ export const getAllPosts = async () => {
   const posts = await notion.databases.query({
     database_id: databaseId,
     page_size: 100,
+    //最新順にソートする場合
+    // sorts: [
+    //   {
+    //     property: "Date",
+    //     direction: "descending",
+    //   },
+    // ],
   });
 
   const allPosts = posts.results;
