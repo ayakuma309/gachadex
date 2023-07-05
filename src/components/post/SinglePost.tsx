@@ -8,15 +8,14 @@ type Props = {
   slug: string;
   isPaginationPage: boolean;
   cover?: string;
-  icon?: string;
 };
 
-const SinglePost = ({ title, description, tags, slug, isPaginationPage,cover, icon } : Props) => {
+const SinglePost = ({ title, description, tags, slug, isPaginationPage,cover } : Props) => {
   return (
     <>
       {isPaginationPage ? (
         <section className="glass_card mb-8 mx-auto rounded-md p-5 shadow-2xl hover:shadow-none hover:translate-y-1 transition-all duration-300">
-          <div className="lg:flex items-center">
+          <div className="flex items-center justify-around">
             <div>
               {cover && (
                 <img src={cover} className="w-24 h-24  rounded-xl" />
@@ -28,8 +27,8 @@ const SinglePost = ({ title, description, tags, slug, isPaginationPage,cover, ic
               </h2>
               {tags.map((tag: string, index: number) => (
                 <Link href={`/posts/tag/${tag}/page/1`} key={index}>
-                  <span className="text-white bg-gray-500 rounded-xl px-2 font-medium mr-2">
-                    {tag}
+                  <span className="bg-gray-200 rounded-xl p-2 font-medium mr-2">
+                    #{tag}
                   </span>
                 </Link>
               ))}
@@ -51,8 +50,8 @@ const SinglePost = ({ title, description, tags, slug, isPaginationPage,cover, ic
               </h2>
               {tags.map((tag: string, index: number) => (
                 <Link href={`/posts/tag/${tag}/page/1`} key={index}>
-                  <span className="text-white bg-gray-500 rounded-xl px-2 font-medium mr-2">
-                    {tag}
+                  <span className="bg-gray-200 rounded-xl p-2 font-medium mr-2">
+                    #{tag}
                   </span>
                 </Link>
               ))}

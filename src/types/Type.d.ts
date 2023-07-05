@@ -4,6 +4,9 @@ type Post = {
   description: string;
   slug: string;
   tags: string[];
+  date: string;
+  icon: string;
+  cover: string;
 }
 
 type Tags = string[];
@@ -22,6 +25,7 @@ type SinglePost = {
     description: string;
     slug: string;
     tags: string[];
+    date: string;
     cover: string;
     icon: string;
   },

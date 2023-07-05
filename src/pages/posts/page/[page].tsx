@@ -1,5 +1,6 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths} from "next";
 import Head from "next/head";
+import Link from "next/link";
 
 import {
   getAllTags,
@@ -64,9 +65,12 @@ const BlogPageList = ({ postsByPage, numberOfPage, allTags }: BlogPageListProps)
       </Head>
 
       <main className="container w-full mt-16">
-        <h1 className="text-5xl font-medium text-center mb-16">
-          Notion Blog🚀
-        </h1>
+        <Link href={`/`}>
+          <h1 className="text-5xl font-medium text-center mb-16">
+            gachadex😄
+          </h1>
+        </Link>
+        <Tag tags={allTags} />
         <section className="sm:grid grid-cols-2 w-5/6 gap-3 mx-auto">
           {postsByPage.map((post) => (
             <div key={post.id}>
@@ -76,12 +80,12 @@ const BlogPageList = ({ postsByPage, numberOfPage, allTags }: BlogPageListProps)
                 tags={post.tags}
                 slug={post.slug}
                 isPaginationPage={true}
+                cover={post.cover}
               />
             </div>
           ))}
         </section>
         <Pagination numberOfPage={numberOfPage} tag={""} />
-        <Tag tags={allTags} />
       </main>
     </div>
   );

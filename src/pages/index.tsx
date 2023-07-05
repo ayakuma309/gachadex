@@ -32,8 +32,9 @@ export default function Home({ fourPosts, allTags }: AllPostProps) {
 
       <main className="container w-full mt-16">
         <h1 className="text-5xl font-medium text-center mb-16">gachadex😄</h1>
+        <Tag  tags={allTags} />
         {fourPosts.map((post: any) => (
-          <div className="mx-4" key={post.id}>
+          <div key={post.id}>
             <SinglePost
               title={post.title}
               description={post.description}
@@ -50,7 +51,6 @@ export default function Home({ fourPosts, allTags }: AllPostProps) {
         >
           ...もっと見る
         </Link>
-        <Tag  tags={allTags} />
       </main>
     </div>
   );
