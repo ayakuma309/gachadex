@@ -5,8 +5,7 @@ type Props = {
   tags: string[];
 };
 
-const Tag = (props: Props) => {
-  const { tags } = props;
+const Tag = ({ tags }: Props) => {
 
   return (
     <div className="mx-4">
