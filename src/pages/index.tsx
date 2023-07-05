@@ -17,7 +17,7 @@ export const getStaticProps = async () => {
       allTags,
     },
     //60秒ごとに更新する ISG
-    revalidate: 60 * 60 * 6,
+    revalidate: 10,
   };
 };
 
@@ -40,6 +40,7 @@ export default function Home({ fourPosts, allTags }: AllPostProps) {
               tags={post.tags}
               slug={post.slug}
               isPaginationPage={false}
+              cover={post.cover}
             />
           </div>
         ))}
