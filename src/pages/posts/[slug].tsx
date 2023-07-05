@@ -1,29 +1,19 @@
 import React from "react";
 import Link from "next/link";
-import { getAllPosts, getSinglePost } from "../../lib/notionAPI";
+import { GetServerSideProps } from "next";
+import { getSinglePost } from "../../lib/notionAPI";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { SinglePostProps } from "@/types/Type";
 
-export const getStaticPaths = async () => {
-  const allPosts = await getAllPosts();
-  const paths = allPosts.map(({ slug }) => ({ params: { slug } }));
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
-
-export const getStaticProps = async ({ params }: any) => {
-  const post = await getSinglePost(params.slug);
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const post = await getSinglePost(params?.slug as string);
 
   return {
     props: {
       post,
     },
-    revalidate: 10,
   };
 };
 
@@ -57,7 +47,6 @@ const Post = ({ post }: SinglePostProps) => {
         break;
     }
   });
-  console.log(content);
   return (
     <section className="container lg:px-2 px-5 h-screen lg:w-2/5 mx-auto mt-20">
       {post.metadata.cover && (
