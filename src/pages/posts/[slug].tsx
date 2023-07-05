@@ -28,12 +28,45 @@ export const getStaticProps = async ({ params }: any) => {
 };
 
 const Post = ({ post }: SinglePostProps) => {
-
+  const content = post.bookmark.map((block, index) => {
+    console.log(block)
+    switch (block.type) {
+      case "bookmark":
+        if (block.parent) {
+          const host = new URL(block.parent).host;
+          return (
+            <div className="flex md:p-1 cursor-pointer w-full"
+            onClick={() => {
+                window.open(block.parent || '')
+            }}
+            key={index}
+        >
+            <div className="p-1 md:p-1 border">
+              <div className="mt-2 flex">
+                <img src={`http://www.google.com/s2/favicons?domain=${host}`} className="w-12 h-12" />
+                <div className="text-xs truncate min-w-0">
+                    {block.parent}
+                </div>
+              </div>
+            </div>
+        </div>
+          );
+        }
+        break;
+      default:
+        break;
+    }
+  });
+  console.log(content);
   return (
     <section className="container lg:px-2 px-5 h-screen lg:w-2/5 mx-auto mt-20">
-      {post.metadata.icon && (<img src={post.metadata.icon} className="w-20 h-20 rounded-xl" />)}
-      {post.metadata.cover && (<img src={post.metadata.cover} className="w-full rounded-xl" />)}
-      <h2 className="w-full text-2xl font-medium">{post.metadata.title}</h2>
+      {post.metadata.cover && (
+        <img src={post.metadata.cover} className="w-52 h-52  rounded-xl" />
+      )}
+      <h2 className="w-full text-2xl font-medium">
+        {post.metadata.icon}
+        {post.metadata.title}
+      </h2>
       <div className="border-b-2 w-1/3 mt-1 border-sky-900"></div>
       <br />
       {post.metadata.tags.map((tag: string, index: number) => (
@@ -65,7 +98,7 @@ const Post = ({ post }: SinglePostProps) => {
         >
           {post.markdown}
         </ReactMarkdown>
-
+        {content}
         <Link href="/">
           <p className="pb-20 block mt-3 text-sky-900">←ホームに戻る</p>
         </Link>

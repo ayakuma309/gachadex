@@ -100,10 +100,29 @@ export const getSinglePost = async (slug: string) => {
   const metadata = getPageMetaData(page);
   // console.log(metadata);
   const mdBlocks = await n2m.pageToMarkdown(page.id);
-  const mdString = n2m.toMarkdownString(mdBlocks);
 
+  const bookmarkBlocks = mdBlocks.filter((block) => block.type === 'bookmark');
+  const formattedBookmarkBlocks = bookmarkBlocks.map((block) => {
+    if (block.type === 'bookmark') {
+      const linkRegex = /\[(.+)\]\((.+)\)/; // リンクの正規表現パターン
+      const matches = linkRegex.exec(block.parent);
+
+      if (matches) {
+        const linkUrl = matches[2]; // リンクURLの部分
+        return {
+          ...block,
+          parent: linkUrl, // リンクテキストのみを取り出して出力
+        };
+      }
+    }
+    return block;
+  });
+
+  const filteredMarkdown = mdBlocks.filter((block) => block.type !== 'bookmark');
+  const mdString = n2m.toMarkdownString(filteredMarkdown);
   return {
     metadata,
+    bookmark: formattedBookmarkBlocks,
     markdown: mdString.parent,
   };
 };

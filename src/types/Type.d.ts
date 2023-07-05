@@ -26,6 +26,10 @@ type SinglePost = {
     icon: string;
   },
   markdown: string;
+  bookmark: {
+    type: "bookmark";
+    parent: string;
+  }[];
 }
 
 export interface SinglePostProps  {
