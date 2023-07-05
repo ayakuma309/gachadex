@@ -10,11 +10,11 @@ const Layout: React.FC<MyComponentProps> = ({
 }) => {
   return (
     <>
-      <div className='mx-auto flex min-h-screen flex-col items-center justify-center'>
+      <div>
         <Header />
-        <main className='flex max-w-screen-sm flex-1 sm:w-screen sm:max-w-screen-xl'>
-          <div className="container mx-auto flex flex-col items-center sm:max-w-7xl">
-            <div className="mt-24">
+        <main>
+          <div>
+            <div>
               {children}
             </div>
           </div>
