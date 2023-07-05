@@ -57,7 +57,6 @@ const Post = ({ post }: SinglePostProps) => {
         break;
     }
   });
-  console.log(content);
   return (
     <section className="container lg:px-2 px-5 h-screen lg:w-2/5 mx-auto mt-20">
       {post.metadata.cover && (

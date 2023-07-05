@@ -33,23 +33,24 @@ export default function Home({ fourPosts, allTags }: AllPostProps) {
       <main className="container w-full mt-16">
         <h1 className="text-5xl font-medium text-center mb-16">gachadex😄</h1>
         <Tag  tags={allTags} />
-        {fourPosts.map((post: any) => (
-          <div key={post.id}>
-            <SinglePost
-              title={post.title}
-              description={post.description}
-              tags={post.tags}
-              slug={post.slug}
-              isPaginationPage={false}
-              cover={post.cover}
-            />
-          </div>
-        ))}
+        <section className="sm:grid grid-cols-2 w-5/6 gap-3 mx-auto">
+          {fourPosts.map((post: any) => (
+            <div key={post.id}>
+              <SinglePost
+                title={post.title}
+                description={post.description}
+                tags={post.tags}
+                slug={post.slug}
+                cover={post.cover}
+              />
+            </div>
+          ))}
+        </section>
         <Link
           href="/posts/page/1"
-          className="mb-6 lg:w-1/2 mx-auto px-5 block text-right"
+          className="mb-6 lg:w-1/2 mx-auto px-5 block text-center"
         >
-          ...もっと見る
+          もっと見る
         </Link>
       </main>
     </div>
