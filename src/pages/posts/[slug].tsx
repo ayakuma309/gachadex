@@ -19,7 +19,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
 const Post = ({ post }: SinglePostProps) => {
   const content = post.bookmark.map((block, index) => {
-    console.log(block)
     switch (block.type) {
       case "bookmark":
         if (block.parent) {
@@ -50,12 +49,11 @@ const Post = ({ post }: SinglePostProps) => {
   return (
     <section className="container lg:px-2 px-5 h-screen lg:w-2/5 mx-auto mt-20">
       <div className="glass_card w-1/2 mx-auto">
-        {post.metadata.cover && (
-          <img src={post.metadata.cover} className="w-52 h-52  rounded-xl object-contain" />
+        {post.metadata.icon && (
+          <img src={post.metadata.icon} className="w-52 h-52  rounded-xl object-contain" />
         )}
       </div>
       <h2 className="w-full text-2xl font-medium mt-5">
-        {post.metadata.icon}
         {post.metadata.title}
       </h2>
       <div className="border-b-2 w-1/3 mt-1 border-gray-900"></div>
