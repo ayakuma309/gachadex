@@ -66,14 +66,14 @@ const getPageMetaData = (post: any) => {
     tags: getTags(post.properties.Tags.multi_select),
     date: post.properties.Date.date.start,
     icon: icon,
-    cover: getCover(post.cover),
+    // cover: getCover(post.cover),
   };
 };
-export const getCover = (cover: any) => {
-  if (cover && cover.file) return cover.file.url;
-  if (cover && cover.external) return cover.external.url;
-  return "";
-};
+// export const getCover = (cover: any) => {
+//   if (cover && cover.file) return cover.file.url;
+//   if (cover && cover.external) return cover.external.url;
+//   return "";
+// };
 
 
 export const getSinglePost = async (slug: string) => {

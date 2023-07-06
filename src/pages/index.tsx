@@ -17,7 +17,7 @@ export const getStaticProps = async () => {
       fourPosts,
       allTags,
     },
-    //60秒ごとに更新する ISG
+    //10秒ごとに更新する ISG
     revalidate: 10,
   };
 };

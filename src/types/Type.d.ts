@@ -6,7 +6,7 @@ type Post = {
   tags: string[];
   date: string;
   icon: string;
-  cover: string;
+  // cover: string;
 }
 
 type Tags = string[];
@@ -26,8 +26,8 @@ type SinglePost = {
     slug: string;
     tags: string[];
     date: string;
-    cover: string;
     icon: string;
+    // cover: string;
   },
   markdown: string;
   bookmark: {
