@@ -33,6 +33,13 @@ const SinglePost = ({ title, description, tags, slug, cover } : Props) => {
           </div>
         </div>
         <div className="text-center mt-3">{description}</div>
+        <div className="flex justify-center mt-3">
+          <Link href={`/posts/${slug}`}>
+            <button className=" bg-lime-500 rounded-md p-2">
+              詳細
+            </button>
+          </Link>
+        </div>
       </section>
     </>
   );

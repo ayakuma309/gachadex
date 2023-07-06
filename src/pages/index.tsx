@@ -8,7 +8,7 @@ import Tag from "@/components/Tag/Tag";
 import AllPosts from "@/components/post/AllPosts";
 import Layout from "@/components/common/Layout";
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const fourPosts = await getPostsForTopPage(NUMBER_OF_POSTS_PER_PAGE);
 
   const allTags = await getAllTags();
@@ -17,6 +17,8 @@ export const getServerSideProps = async () => {
       fourPosts,
       allTags,
     },
+    //60秒ごとに更新する ISG
+    revalidate: 10,
   };
 };
 

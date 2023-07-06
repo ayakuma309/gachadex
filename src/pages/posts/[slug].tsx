@@ -49,18 +49,20 @@ const Post = ({ post }: SinglePostProps) => {
   });
   return (
     <section className="container lg:px-2 px-5 h-screen lg:w-2/5 mx-auto mt-20">
-      {post.metadata.cover && (
-        <img src={post.metadata.cover} className="w-52 h-52  rounded-xl" />
-      )}
-      <h2 className="w-full text-2xl font-medium">
+      <div className="glass_card w-1/2 mx-auto">
+        {post.metadata.cover && (
+          <img src={post.metadata.cover} className="w-52 h-52  rounded-xl object-contain" />
+        )}
+      </div>
+      <h2 className="w-full text-2xl font-medium mt-5">
         {post.metadata.icon}
         {post.metadata.title}
       </h2>
-      <div className="border-b-2 w-1/3 mt-1 border-sky-900"></div>
+      <div className="border-b-2 w-1/3 mt-1 border-gray-900"></div>
       <br />
       {post.metadata.tags.map((tag: string, index: number) => (
         <p
-          className="text-white bg-sky-900 rounded-xl font-medium mt-2 px-2 inline-block mr-2"
+          className="bg-gray-200 rounded-xl font-medium mt-2 px-2 inline-block mr-2"
           key={index}
         >
           <Link href={`/posts/tag/${tag}/page/1`}>{tag}</Link>
