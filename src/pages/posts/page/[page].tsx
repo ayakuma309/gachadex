@@ -1,4 +1,4 @@
-import { GetServerSideProps } from "next";
+import { GetStaticPaths } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -10,19 +10,37 @@ import {
 
 import { BlogPageListProps } from "@/types/Type";
 
-import SinglePost from "@/components/post/SinglePost";
 import Pagination from "@/components/Pagination/pagination";
 import Tag from "@/components/Tag/Tag";
+import AllPosts from "@/components/post/AllPosts";
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const currentPage = context.params?.page ?? "1";
+export const getStaticPaths: GetStaticPaths = async () => {
+  //ページネーションの中にある現在のページを返す
+  const numberOfPage = await getNumberOfPages();
 
+  //該当箇所を返す
+  let params = [];
+  for (let i = 1; i <= numberOfPage; i++) {
+    params.push({ params: { page: i.toString() } });
+  }
 
+  return {
+    paths: params,
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps =  async (context: { params: { page: string; }; }) => {
+  //現在のページ
+  const currentPage = context.params?.page;
+
+  //そのページの個数を数値で取得
   const postsByPage = await getPostsByPage(
     parseInt(currentPage.toString(), 10)
   );
 
+  //ページネーション設定
   const numberOfPage = await getNumberOfPages();
 
   const allTags = await getAllTags();
@@ -33,9 +51,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       numberOfPage,
       allTags,
     },
+    revalidate: 10,
   };
 };
-
 const BlogPageList = ({ postsByPage, numberOfPage, allTags }: BlogPageListProps) => {
   return (
     <div className="container h-full w-full mx-auto">
@@ -55,12 +73,11 @@ const BlogPageList = ({ postsByPage, numberOfPage, allTags }: BlogPageListProps)
         <section className="sm:grid grid-cols-3 w-5/6 gap-3 mx-auto">
           {postsByPage.map((post) => (
             <div key={post.id}>
-              <SinglePost
+              <AllPosts
                 title={post.title}
                 description={post.description}
                 tags={post.tags}
                 slug={post.slug}
-                icon={post.icon}
               />
             </div>
           ))}
