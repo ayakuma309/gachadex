@@ -19,9 +19,9 @@ const AllPosts = ({ title, description, tags, slug } : Props) => {
             </h2>
             {tags.map((tag: string, index: number) => (
               <Link href={`/posts/tag/${tag}/page/1`} key={index}>
-                <span className="bg-gray-200 rounded-xl p-2 font-medium mr-2  my-2">
-                  #{tag}
-                </span>
+                <button className="bg-gray-200 rounded-xl p-2 text-xs mr-2  m-1">
+                  #{tag}<br/>
+                </button>
               </Link>
             ))}
           </div>
