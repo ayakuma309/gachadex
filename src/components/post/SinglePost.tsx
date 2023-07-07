@@ -26,9 +26,9 @@ const SinglePost = ({ title, description, tags, slug, icon } : Props) => {
             </h2>
             {tags.map((tag: string, index: number) => (
               <Link href={`/posts/tag/${tag}/page/1`} key={index}>
-                <span className="bg-gray-200 rounded-xl p-2 font-medium mr-2  my-2">
+                <button className="bg-gray-200 rounded-xl p-2 font-medium mr-2 text-xs mt-2">
                   #{tag}
-                </span>
+                </button><br />
               </Link>
             ))}
           </div>

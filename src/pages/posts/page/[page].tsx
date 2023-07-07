@@ -52,7 +52,7 @@ const BlogPageList = ({ postsByPage, numberOfPage, allTags }: BlogPageListProps)
           </h1>
         </Link>
         <Tag tags={allTags} />
-        <section className="sm:grid grid-cols-2 w-5/6 gap-3 mx-auto">
+        <section className="sm:grid grid-cols-3 w-5/6 gap-3 mx-auto">
           {postsByPage.map((post) => (
             <div key={post.id}>
               <SinglePost
