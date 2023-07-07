@@ -127,7 +127,7 @@ export const getSinglePost = async (slug: string) => {
   };
 };
 
-//topページの記事を取得(4つ取得ページネーション)
+//topページの記事を取得(指定した数取得ページネーション)
 export const getPostsForTopPage = async (pageSize: number) => {
   const allPosts = await getAllPosts();
   const fourPosts = allPosts.slice(0, pageSize);

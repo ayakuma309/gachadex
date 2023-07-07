@@ -10,7 +10,7 @@ const Header:React.FC = () => {
             <div className='mr-16 flex flex-shrink-0 items-center hover:opacity-70 sm:mr-0'>
               <Link href='/'>
                 <div className='block h-7 w-auto sm:ml-10 font-bold text-black'>
-                  タイトル
+                  gachadex
                 </div>
               </Link>
             </div>
