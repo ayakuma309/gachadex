@@ -43,6 +43,7 @@ export default function Home({ fourPosts, allTags }: AllPostProps) {
                   description={post.description}
                   tags={post.tags}
                   slug={post.slug}
+                  cover={post.cover}
                 />
               </div>
             ))}

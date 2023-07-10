@@ -91,6 +91,7 @@ const BlogTagPageList = ({
                 description={post.description}
                 tags={post.tags}
                 slug={post.slug}
+                cover={post.cover}
               />
             </div>
           ))}
