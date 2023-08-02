@@ -25,8 +25,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     })
   );
 
-  // console.log(params);
-
   return {
     paths: params,
     fallback: "blocking",
@@ -91,7 +89,7 @@ const BlogTagPageList = ({
                 description={post.description}
                 tags={post.tags}
                 slug={post.slug}
-                cover={post.cover}
+                icon={post.icon}
               />
             </div>
           ))}
