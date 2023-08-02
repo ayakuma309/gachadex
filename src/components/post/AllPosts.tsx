@@ -6,18 +6,18 @@ type Props = {
   description: string;
   tags: string[];
   slug: string;
-  cover?: string;
+  icon?: string;
 };
 
-const AllPosts = ({ title, description, tags, slug, cover } : Props) => {
+const AllPosts = ({ title, description, tags, slug, icon } : Props) => {
   return (
     <>
       <section className="glass_card mb-8 mx-auto rounded-md p-5 shadow-2xl hover:shadow-none hover:translate-y-1 transition-all duration-300">
         <div className="flex  flex-col items-center justify-around">
           <div>
             <div className="glass_card mx-auto">
-              {cover && (
-                <img src={cover} className="w-80 h-36 rounded-xl object-cover" />
+              {icon && (
+                <img src={icon} className="w-80 h-36 rounded-xl object-cover" />
               )}
             </div>
             <h2 className="text-2xl font-medium mb-2  my-2">

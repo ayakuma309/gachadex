@@ -61,8 +61,8 @@ const Post = ({ post }: SinglePostProps) => {
   return (
     <>
       <div className="mx-auto">
-        {post.metadata.cover && (
-          <img src={post.metadata.cover} className="h-72 object-cover" />
+        {post.metadata.icon && (
+          <img src={post.metadata.icon} className="h-72 object-cover" />
         )}
       </div>
       <section className="container lg:px-2 px-5 h-screen lg:w-2/5 mx-auto mt-20">
